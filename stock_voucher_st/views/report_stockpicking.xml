@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- <report
+        string="Remito LIBRA"
+        id="libra_action_report_picking"
+        model="stock.picking"
+        report_type="qweb-pdf"
+        name="libra_adhoc_stock.report_picking"
+    /> -->
+
+    <data>
+
+        <template id="report_picking">
+            <t t-foreach="docs" t-as="o">
+                <t t-foreach="o.voucher_ids" t-as="voucher">
+                    <t t-call="web.basic_layout">
+                        <div class="header" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;">
+                            <div class="row">
+                                <div class="col-9">
+                                    
+                                </div>
+                                <div class="col-3 text-center" style="margin-top:20px;">
+                                    <t t-if="o.picking_type_code =='incoming'">
+                                        <span><strong>DEVOLUCION</strong></span>                        
+                                    </t>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>                                    
+                            <br/>
+                            <br/>
+                            <br/>                                                                
+                            <div class="row">
+                                <div class="col-8 text-right">
+                                    <span t-field="o.date_done" t-options='{"format": "dd"}'/>
+                                </div>                            
+                                <div class="col-1 text-center">
+                                    <span t-field="o.date_done" t-options='{"format": "MM"}'/>
+                                </div>
+                                <div class="col-3 text-left">
+                                    <span t-field="o.date_done" t-options='{"format": "yyyy"}'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>                                                        
+                            <t t-set="cliente_id" t-value="o.partner_id"/>
+                            <div class="row">
+                                <div class="col-1">
+                                </div>
+                                <div class="col-8">
+                                    <!-- cliente -->
+                                    <span><span t-field="cliente_id.display_name"/></span>
+                                </div>
+                                <div class="col-3">
+                                    <!-- IVA -->
+                                    <span><span t-field="cliente_id.l10n_ar_afip_responsibility_type_id.name" t-options='{"format": "dd/MM/yyyy"}'/></span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-1">                                    
+                                </div>
+                                <div class="col-5">
+                                    <span><t t-esc="cliente_id.street" /> - <t t-esc="cliente_id.city" />  (<t t-esc="cliente_id.zip" />)</span>
+                                </div>
+                                <!-- <div class="col-4">
+                                    <span>Entregar a:<t t-esc="o.deliver_to.name" /></span>
+                                </div>                                 -->
+                                <div class="col-2">
+                                    <span><t t-esc="cliente_id.vat" /> </span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-1">                                    
+                                </div>
+                                <div class="col-8">
+                                    <span><t t-esc="cliente_id.mobile" /></span>
+                                </div>
+                                <div class="col-3">
+                                    <!-- <span>Entregar a:<t t-esc="o.deliver_to.name" /></span> -->
+                                    <!-- <t t-set="desc" t-value=""/>
+                                    <t t-foreach="inv" t-as="o.invoice_ids">
+                                        <t t-set="desc" t-value="inv.display_name"/>
+                                        <span><t t-esc="inv.display_name" /></span>
+                                    </t> -->
+                                    <!-- <t t-if="len(o.invoice_ids) == 1">
+                                        <span><t t-esc="o.invoice_ids.mapped('display_name')" /></span>                                    
+                                        <span><t t-esc="o.invoice_ids.display_name" /></span>
+                                    </t> -->
+
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                        </div>
+
+                        <t t-foreach="o.move_ids_without_package" t-as="move">
+                            <t t-if="move.picking_voucher_id.id == voucher.id">
+                                <t t-if="move.move_line_ids">
+                                    <div class="row" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;">
+                                        <div class="col-2 text-center">
+                                            <span><t t-esc="move.product_id.default_code" /></span>
+                                        </div>
+                                        <div class="col-8 text-left">
+                                            <t t-if="move.move_line_ids[0].lot_id">
+                                                <span><t t-esc="move.product_id.name + ' - Nro. de series: ' + '; '.join([x.name for x in move.move_line_ids.mapped('lot_id')]) " /></span>
+                                            </t>
+                                            <t t-else="">
+                                                <span><t t-esc="move.product_id.name" /></span>
+                                            </t>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <span><t t-esc="move.quantity" /></span>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+
+                            <t t-foreach="move.move_line_ids" t-as="line">
+                                <t t-if="line.picking_voucher_id.id == voucher.id">
+                                    <div class="row" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;">
+                                        <div class="col-2 text-center">
+                                            <span><t t-esc="move.product_id.default_code" /></span>
+                                        </div>
+                                        <div class="col-8 text-left">
+                                            <t t-if="line.lot_id">
+                                                <span><t t-esc="move.product_id.name + ' - Nro. serie: ' + line.lot_id.name" /></span>
+                                            </t>
+                                            <t t-else="">
+                                                <span><t t-esc="move.product_id.name" /></span>
+                                            </t>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <t t-if="line.lot_id">
+                                                <span><t t-esc="line.qty_done" /></span>
+                                            </t>
+                                            <t t-else="">
+                                                <span><t t-esc="move.quantity" /></span>
+                                            </t>                                        
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+                        </t>
+                        <br/>
+
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <span><t t-esc="o.company_id.stock_delivery_note" /></span>
+                            </div>
+                        </div> -->
+
+                    </t>
+
+                    <div class="footer o_standard_footer" style="font-size: 11pt;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;">
+                        <div class="row">
+                            <div class="col-9">
+                                
+                            </div>                    
+                            <div class="col-3">
+                                <span t-field="voucher.name"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+            
+        </template>
+
+        <record id="action_report_picking" model="ir.actions.report">
+            <field name="name">Remito R</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_voucher_st.report_picking</field>
+            <field name="report_file">stock_voucher_st.report_picking_operations</field>
+            <field name="print_report_name">'Remito R - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
