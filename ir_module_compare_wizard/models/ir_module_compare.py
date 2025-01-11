@@ -121,45 +121,45 @@ class IrModuleImportLine(models.Model):
     )
     module_technical_name = fields.Char(
         string="Technical Name",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         required=True,
     )
     module_last_version = fields.Char(
         string="Last Version",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
     )
     module_website = fields.Char(
         string="Website",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
     )
     module_path = fields.Char(
         string="Path",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
     )
     module_author = fields.Char(
         string="Author",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
     )
     module_author_generic = fields.Char(
         string="Author Generic",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
     )
     module_notes = fields.Char(
         string="Notes",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
     )
     migrate_module = fields.Boolean(
         string="Migrate",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         default=True,
     )
     install_module = fields.Boolean(
         string="Review",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         default=False,
     )
     priority = fields.Integer(
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
     )
 
     def _action_validate(self):
