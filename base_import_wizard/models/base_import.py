@@ -105,25 +105,25 @@ class BaseImport(models.AbstractModel):
     )
     data = fields.Binary(
         string="File",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         copy=False,
     )
     filename = fields.Char(
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         copy=False,
     )
     file_date = fields.Date(
         string="Import Date",
         required=True,
         default=fields.Date.context_today,
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         copy=False,
     )
     import_line_ids = fields.One2many(
         comodel_name="base.import.line",
         inverse_name="import_id",
         string="Lines to Import",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         copy=False,
     )
     state = fields.Selection(
@@ -364,7 +364,7 @@ class BaseImportLine(models.AbstractModel):
         required=True,
     )
     log_info = fields.Text(
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         copy=False,
     )
     state = fields.Selection(
@@ -379,7 +379,7 @@ class BaseImportLine(models.AbstractModel):
             ("nothing", "Nothing"),
         ],
         default="nothing",
-        states={"done": [("readonly", True)]},
+        # states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
