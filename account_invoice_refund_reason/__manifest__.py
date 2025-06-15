@@ -22,5 +22,5 @@
     "license": "AGPL-3",
     "development_status": "Beta",
     "maintainers": ["max3903"],
-    "installable": True,
+    "installable": False,
 }

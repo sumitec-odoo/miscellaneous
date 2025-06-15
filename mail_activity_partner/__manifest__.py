@@ -9,7 +9,7 @@
     "website": "https://github.com/OCA/social",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "installable": True,
+    "installable": False,
     "data": ["views/mail_activity_views.xml"],
     "depends": ["mail_activity_board"],
 }

@@ -18,5 +18,5 @@
         "security/ir.model.access.csv",
     ],
     "external_dependencies": {"python": ["xlrd"]},
-    "installable": True,
+    "installable": False,
 }

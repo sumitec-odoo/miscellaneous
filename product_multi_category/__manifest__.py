@@ -11,5 +11,5 @@
     "category": "Product Management",
     "depends": ["product"],
     "data": ["views/product_view.xml"],
-    "installable": True,
+    "installable": False,
 }

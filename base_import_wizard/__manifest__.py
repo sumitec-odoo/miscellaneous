@@ -17,5 +17,5 @@
         "views/base_import_views.xml",
     ],
     "external_dependencies": {"python": ["xlrd"]},
-    "installable": True,
+    "installable": False,
 }

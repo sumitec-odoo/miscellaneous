@@ -9,5 +9,5 @@
     "license": "AGPL-3",
     "depends": ["sale"],
     "data": ["security/sale_security.xml", "views/res_config_settings_views.xml"],
-    "installable": True,
+    "installable": False,
 }

@@ -18,4 +18,5 @@
         "data/mail_template_data.xml",
         "wizards/product_pricelist_print_view.xml",
     ],
+    "installable": False,
 }

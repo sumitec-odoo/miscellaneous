@@ -21,5 +21,5 @@
         'views/report_stockpicking.xml',
         'views/stock_picking_views.xml',
         ],
-    "installable": True,
+    "installable": False,
 }
