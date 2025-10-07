@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reason_id']" position="attributes">
+                <attribute name="force_save">0</attribute>
+                <attribute name="invisible">move_type != 'out_refund'</attribute>
+                <attribute name="readonly">state in ['posted', 'cancel']</attribute>
+            </xpath>
+            <xpath expr="//field[@name='reason_id']" position="after">
+                <field name="picking_id" invisible="move_type != 'out_refund'"/>
+                <field name="picking_reason_id" invisible="move_type != 'out_refund'"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>        
